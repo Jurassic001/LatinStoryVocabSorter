@@ -5,6 +5,7 @@ import pyperclip
 import keyboard as kb
 import time
 
+# This whole code block is dedicated to getting the Latin and English forms of the words in the story.
 driver = webdriver.Chrome()
 driver.get(pyperclip.paste())
 button = driver.find_element(By.XPATH, '/html/body/div[8]')
@@ -27,12 +28,13 @@ for row in table.find_all('tr'):
         lat_texts.append(lat_cell.get_text(strip=True))
         eng_texts.append(eng_cell.get_text(strip=True))
 
+# Set up our category lists
 know = []
 recog = []
 unknown = []
 discard = []
 
-
+# Fill the specified column
 def selectFill(target: list):
     for x in range(len(target)):
         kb.write(target[x])
@@ -45,13 +47,13 @@ def selectFill(target: list):
         kb.press("up")
         time.sleep(1)
 
-
+# Fill all the columns
 def fillAll():
     selectFill(know)
     selectFill(recog)
     selectFill(unknown)
 
-
+# Take user input on their knowledge of the vocab word
 def setCategory():
     time.sleep(0.1)
     while True:
@@ -65,6 +67,7 @@ def setCategory():
             return discard
 
 
+# This is the main code block that runs through all the vocab words and places them in their respective categories
 print("1 for know, 2 for recognize, 3 for don't know, 4 for discard")
 print("")
 for i in range(len(lat_texts)):
