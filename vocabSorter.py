@@ -47,8 +47,21 @@ def selectFill(target: list):
         kb.press("up")
         time.sleep(1)
 
+# Makes sure that there are enough rows in the table to fit all vocab terms
+def makeSpace():
+    neededRows = max(len(know), len(recog), len(unknown))
+    for i in range(neededRows):
+        for i in range(3):
+            kb.press("tab")
+            time.sleep(0.01)
+    time.sleep(0.1)
+    for i in range(neededRows):
+        kb.press("up")
+        time.sleep(0.01)
+
 # Fill all the columns
 def fillAll():
+    makeSpace()
     selectFill(know)
     selectFill(recog)
     selectFill(unknown)
